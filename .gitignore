@@ -29,3 +29,8 @@
 
 build/*
 log/*.log
+.vscode/
+.vs/
+.idea/
+out/
+cmake-build-*

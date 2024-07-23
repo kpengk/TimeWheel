@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.18)
 
 if(POLICY CMP0074)
     # find_package() uses <PackageName>_ROOT variables.
@@ -9,7 +9,7 @@ endif()
 project(TimeWheel)
 
 # C++ standard requirements.
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -20,13 +20,11 @@ find_package(Threads REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
-file(GLOB SRCS *.cpp *.h)
+file(GLOB SRCS *.h *.hpp *.cpp)
 
 set(EXE_TARGET_NAME time-wheel)
 
-set(LIBS
-    "${CMAKE_THREAD_LIBS_INIT}"
-    )
+set(LIBS "${CMAKE_THREAD_LIBS_INIT}")
 
 add_executable(${EXE_TARGET_NAME} ${SRCS})
 target_link_libraries(${EXE_TARGET_NAME} ${LIBS})

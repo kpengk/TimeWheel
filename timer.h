@@ -5,36 +5,45 @@
 #include <functional>
 #include <memory>
 
-typedef std::function<void()> TimerTask;
+using TimerTask = std::function<void()>;
 
 class Timer {
 public:
-  Timer(uint32_t id, int64_t when_ms, int64_t interval_ms, const TimerTask& task);
+    Timer(uint32_t id, uint64_t when_ms, uint32_t interval_ms, TimerTask handler)
+        : id_{id}, when_ms_{when_ms}
+          , interval_ms_{interval_ms}
+          , repeated_{interval_ms > 0}
+          , task_{std::move(handler)} {
+    }
 
-  void Run();
+    void run() {
+        if (task_) {
+            task_();
+        }
+    }
 
-  uint32_t id() const {
-    return id_;
-  }
+    [[nodiscard]] uint32_t id() const {
+        return id_;
+    }
 
-  int64_t when_ms() const {
-    return when_ms_;
-  }
+    [[nodiscard]] uint64_t when_ms() const {
+        return when_ms_;
+    }
 
-  bool repeated() const {
-    return repeated_;
-  }
+    [[nodiscard]] bool repeated() const {
+        return repeated_;
+    }
 
-  void UpdateWhenTime() {
-    when_ms_ += interval_ms_;
-  }
+    void update_when_time() {
+        when_ms_ += interval_ms_;
+    }
 
 private:
-  uint32_t id_;
-  TimerTask task_;
-  int64_t when_ms_;
-  uint32_t interval_ms_;
-  bool repeated_;
+    const uint32_t id_;
+    uint64_t when_ms_;
+    const uint32_t interval_ms_;
+    const bool repeated_;
+    TimerTask task_;
 };
 
 using TimerPtr = std::shared_ptr<Timer>;
