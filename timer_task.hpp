@@ -1,5 +1,4 @@
-#ifndef TIMER_H_
-#define TIMER_H_
+#pragma once
 
 #include <cstdint>
 #include <functional>
@@ -10,10 +9,7 @@ using TimerTask = std::function<void()>;
 class Timer {
 public:
     Timer(uint32_t id, uint64_t when_ms, uint32_t interval_ms, TimerTask handler)
-        : id_{id}, when_ms_{when_ms}
-          , interval_ms_{interval_ms}
-          , repeated_{interval_ms > 0}
-          , task_{std::move(handler)} {
+        : id_{id}, when_ms_{when_ms}, interval_ms_{interval_ms}, repeated_{interval_ms > 0}, task_{std::move(handler)} {
     }
 
     void run() {
@@ -47,5 +43,3 @@ private:
 };
 
 using TimerPtr = std::shared_ptr<Timer>;
-
-#endif  // TIMER_H_

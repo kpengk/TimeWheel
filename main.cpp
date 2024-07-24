@@ -2,7 +2,7 @@
 #include <string>
 #include <thread>
 
-#include "time_wheel_scheduler.h"
+#include "time_wheel_scheduler.hpp"
 
 std::string timetoStr() {
     char tmp[64] = {0};
@@ -30,6 +30,10 @@ int main() {
 
     tws.create_timer_at(get_now_timestamp() + 10000, []() {
         std::cout << "At now+10s" << std::endl;
+    });
+
+    tws.create_timer_after(40, []() {
+        std::cout << "After 0.04s" << std::endl;
     });
 
     tws.create_timer_after(500, []() {
