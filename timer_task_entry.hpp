@@ -6,9 +6,9 @@
 
 using TimerTask = std::function<void()>;
 
-class Timer {
+class TimerTaskEntry {
 public:
-    Timer(uint32_t id, uint64_t when_ms, uint32_t interval_ms, TimerTask handler)
+    TimerTaskEntry(uint32_t id, uint64_t when_ms, uint32_t interval_ms, TimerTask handler)
         : id_{id}, when_ms_{when_ms}, interval_ms_{interval_ms}, repeated_{interval_ms > 0}, task_{std::move(handler)} {
     }
 
@@ -42,4 +42,4 @@ private:
     TimerTask task_;
 };
 
-using TimerPtr = std::shared_ptr<Timer>;
+using TimerTaskEntryPtr = std::shared_ptr<TimerTaskEntry>;

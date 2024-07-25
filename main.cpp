@@ -32,10 +32,6 @@ int main() {
         std::cout << "At now+10s" << std::endl;
     });
 
-    tws.create_timer_after(40, []() {
-        std::cout << "After 0.04s" << std::endl;
-    });
-
     tws.create_timer_after(500, []() {
         std::cout << "After 0.5s" << std::endl;
     });
